@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		616FAEE3F4D991DAE5E3A031 /* Pods_TwitterApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 394365A32FC78ED42B4A4E56 /* Pods_TwitterApp.framework */; };
+		E98238D3271B00F40002993D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98238D2271B00F40002993D /* Constants.swift */; };
+		E98238D5271B06840002993D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98238D4271B06840002993D /* AuthService.swift */; };
 		E9F05A732715F872005F9E87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F05A722715F872005F9E87 /* AppDelegate.swift */; };
 		E9F05A752715F872005F9E87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F05A742715F872005F9E87 /* SceneDelegate.swift */; };
 		E9F05A7A2715F872005F9E87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F05A782715F872005F9E87 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 		023F7F99AD26551F5DED4DFB /* Pods-TwitterApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterApp.release.xcconfig"; path = "Target Support Files/Pods-TwitterApp/Pods-TwitterApp.release.xcconfig"; sourceTree = "<group>"; };
 		394365A32FC78ED42B4A4E56 /* Pods_TwitterApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5946724E03B0DC2A1EC8234A /* Pods-TwitterApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterApp.debug.xcconfig"; path = "Target Support Files/Pods-TwitterApp/Pods-TwitterApp.debug.xcconfig"; sourceTree = "<group>"; };
+		E98238D2271B00F40002993D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E98238D4271B06840002993D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		E9F05A6F2715F872005F9E87 /* TwitterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F05A722715F872005F9E87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F05A742715F872005F9E87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +78,6 @@
 				5946724E03B0DC2A1EC8234A /* Pods-TwitterApp.debug.xcconfig */,
 				023F7F99AD26551F5DED4DFB /* Pods-TwitterApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -121,6 +124,7 @@
 			children = (
 				E9F05A9A27160BFB005F9E87 /* Extensions.swift */,
 				E9F05AA127171D8C005F9E87 /* Utilites.swift */,
+				E98238D2271B00F40002993D /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -128,6 +132,7 @@
 		E9F05A8B2715F925005F9E87 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				E98238D4271B06840002993D /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -297,11 +302,13 @@
 				E9F05A9B27160BFB005F9E87 /* Extensions.swift in Sources */,
 				E9F05AA227171D8C005F9E87 /* Utilites.swift in Sources */,
 				E9F05A9E271715F4005F9E87 /* LoginController.swift in Sources */,
+				E98238D5271B06840002993D /* AuthService.swift in Sources */,
 				E9F05AA02717164E005F9E87 /* RegistrationController.swift in Sources */,
 				E9F05A752715F872005F9E87 /* SceneDelegate.swift in Sources */,
 				E9F05A912715FA35005F9E87 /* MainTabController.swift in Sources */,
 				E9F05A992715FBF1005F9E87 /* ConversationController.swift in Sources */,
 				E9F05A932715FB6B005F9E87 /* FeedController.swift in Sources */,
+				E98238D3271B00F40002993D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
