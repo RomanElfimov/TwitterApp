@@ -19,6 +19,10 @@ struct AuthCredentials {
 struct AuthService {
     static let shared = AuthService()
     
+    func logUserIn(withEmail email: String, password: String, completion: AuthDataResultCallback?) {
+        Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+    }
+    
     func registerUser(credentials: AuthCredentials, completion: @escaping(Error?, DatabaseReference) -> Void, response: @escaping(Error?) -> Void) {
         let email = credentials.email
         let password = credentials.password
@@ -36,7 +40,10 @@ struct AuthService {
                 
                 Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                     if let error = error {
-                        response(error)
+                        print("DEBUG: \(error.localizedDescription)")
+                        if error.localizedDescription == "The password must be 6 characters long or more." {
+                            response(AuthError.shortPassword)
+                        }
                         return
                     }
                     

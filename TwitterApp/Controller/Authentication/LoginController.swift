@@ -84,7 +84,25 @@ class LoginController: UIViewController {
     }
     
     @objc func handleLogin() {
-        print("Handle login here")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        AuthService.shared.logUserIn(withEmail: email, password: password) { [weak self] result, error in
+            if let error = error {
+                print("DEBUG: Error loggin in \(error.localizedDescription)")
+                if error.localizedDescription == "The password is invalid or the user does not have a password." {
+                    self?.presentAlertController(withTitle: "Ошибка", withMessage: "Неверный пароль")
+                } else if error.localizedDescription == "The email address is badly formatted." {
+                    self?.presentAlertController(withTitle: "Ошибка", withMessage: "Неверный email")
+                }
+                return
+            }
+            
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+            
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Heplers

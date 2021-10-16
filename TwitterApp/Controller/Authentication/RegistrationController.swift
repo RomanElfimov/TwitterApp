@@ -106,8 +106,7 @@ class RegistrationController: UIViewController {
     
     @objc func handleRegistration() {
         guard let profileImage = profileImage else {
-            // show alert
-            print("DEBUG: Please select a profile image")
+            presentAlertController(withTitle: "Ошибка", withMessage: "Пожалуйста выберите фото профиля")
             return
         }
         
@@ -120,15 +119,15 @@ class RegistrationController: UIViewController {
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         AuthService.shared.registerUser(credentials: credentials) { error, ref in
             
-            print("SUCCESS")
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+            
+            self.dismiss(animated: true, completion: nil)
             
         } response: { [weak self] error in
             if let error = error {
-                // show alert
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let alertAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
-                alert.addAction(alertAction)
-                self?.present(alert, animated: true, completion: nil)
+                self?.presentAlertController(withTitle: "Ошибка", withMessage: error.localizedDescription)
             }
         }
         
