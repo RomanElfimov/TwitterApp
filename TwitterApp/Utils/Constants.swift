@@ -13,3 +13,6 @@ let REF_USERS = DB_REF.child("users")
 // for image
 let STORAGE_REF = Storage.storage().reference()
 let STORAGE_PROFILE_IMAGES = STORAGE_REF.child("profile_images")
+
+// upload tweet
+let REF_TWEETS = DB_REF.child("tweets")

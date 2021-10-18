@@ -82,7 +82,18 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func actionButtonTapped() {
-        print(123)
+        guard let user = user else { return }
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        
+        // IOS 15 changes
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = .systemBackground
+        nav.navigationBar.standardAppearance = navBarAppearance
+        nav.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        present(nav, animated: true, completion: nil)
     }
     
     
