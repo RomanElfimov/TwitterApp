@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - TweetCellDelegate
+
+protocol TweetCellDelegate: class {
+    func handleProfileImageTapped(_ cell: TweetCell)
+}
+
+
 class TweetCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -18,15 +25,23 @@ class TweetCell: UICollectionViewCell {
     }
     
     
+    weak var delegate: TweetCellDelegate?
+    
     
     // Profile image view
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.setDimensions(width: 48, height: 48)
         iv.layer.cornerRadius = 48 / 2
         iv.backgroundColor = .twitterBlue
+        
+        // по тапу на изображение переходить в профиль автора
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
+        iv.addGestureRecognizer(tap)
+        iv.isUserInteractionEnabled = true
+        
         return iv
     }()
     
@@ -127,6 +142,10 @@ class TweetCell: UICollectionViewCell {
     
     
     // MARK: - Selectors
+    
+    @objc func handleProfileImageTapped() {
+        delegate?.handleProfileImageTapped(self)
+    }
     
     @objc func handleCommentTapped() {
         

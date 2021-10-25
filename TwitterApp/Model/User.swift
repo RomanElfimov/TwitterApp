@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct User {
     
@@ -14,6 +15,11 @@ struct User {
     let username: String
     var profileImageUrl: URL?
     let uid: String
+    
+    // текущей ли пользователь
+    var isCurrentUser: Bool {
+        return Auth.auth().currentUser?.uid == uid
+    }
     
     // use dictionary for initialize User
     init(uid: String, dictionary: [String: AnyObject]) {
