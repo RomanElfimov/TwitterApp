@@ -14,7 +14,7 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let user: User
+    private var user: User
     
     // MARK: - Lifecycle
     
@@ -38,6 +38,8 @@ class ProfileController: UICollectionViewController {
         
         configureCollectionView()
         fetchTweets()
+        checkIfUserIsFollowed()
+        fetchUserStats()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,18 +57,32 @@ class ProfileController: UICollectionViewController {
         }
     }
     
+    func checkIfUserIsFollowed() {
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+            self.user.isFollowed = isFollowed
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // count of followers/following
+    func fetchUserStats() {
+        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
+            self?.user.stats = stats
+            self?.collectionView.reloadData()
+        }
+    }
     
     // MARK: - Helpers
     
     func configureCollectionView() {
-    
+        
         collectionView.contentInsetAdjustmentBehavior = .never
         
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
     }
     
-   
+    
 }
 
 
@@ -105,7 +121,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
@@ -117,7 +133,28 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 // MARK: - ProfileHeaderDelegate Extension
 
 extension ProfileController: ProfileHeaderDelegate {
+    
     func handleDismissal() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    func handleEditProfileFollow(_ header: ProfileHeader) {
+        
+        if user.isCurrentUser {
+            print("DEBUG: Show edit profile controller")
+            return
+        }
+        
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { [weak self] err, ref in
+                self?.user.isFollowed = false
+                self?.collectionView.reloadData()
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { [weak self] ref, err in
+                self?.user.isFollowed = true
+                self?.collectionView.reloadData()
+            }
+        }
     }
 }

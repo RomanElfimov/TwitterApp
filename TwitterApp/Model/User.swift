@@ -15,6 +15,8 @@ struct User {
     let username: String
     var profileImageUrl: URL?
     let uid: String
+    var isFollowed = false
+    var stats: UserRelationStats? // following / followers count
     
     // текущей ли пользователь
     var isCurrentUser: Bool {
@@ -36,4 +38,10 @@ struct User {
         }
     }
     
+}
+
+
+struct UserRelationStats {
+    var followers: Int
+    var following: Int
 }

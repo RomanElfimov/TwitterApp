@@ -9,7 +9,8 @@ import UIKit
 import SDWebImage
 
 protocol ProfileHeaderDelegate: class {
-     func handleDismissal()
+    func handleDismissal()
+    func handleEditProfileFollow(_ header: ProfileHeader)// edit, follow/unfollow
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -60,7 +61,7 @@ class ProfileHeader: UICollectionReusableView {
     
     
     // Follow / Unfolowing Button
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor.twitterBlue.cgColor
@@ -177,7 +178,7 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleEditProfileFollow() {
-        
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc func handleFollowersTapped() {
