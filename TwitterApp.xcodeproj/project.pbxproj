@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		616FAEE3F4D991DAE5E3A031 /* Pods_TwitterApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 394365A32FC78ED42B4A4E56 /* Pods_TwitterApp.framework */; };
 		E939E708272E9DEA00C409B1 /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939E707272E9DEA00C409B1 /* UploadTweetViewModel.swift */; };
+		E939E70A272EC88200C409B1 /* ActionSheetLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939E709272EC88200C409B1 /* ActionSheetLauncher.swift */; };
+		E939E70C272EEC2600C409B1 /* ActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939E70B272EEC2600C409B1 /* ActionSheetCell.swift */; };
+		E939E70E272EF8E900C409B1 /* ActionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E939E70D272EF8E900C409B1 /* ActionSheetViewModel.swift */; };
 		E949FC9C272864FD006B239E /* TweetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E949FC9B272864FD006B239E /* TweetHeader.swift */; };
 		E98238D3271B00F40002993D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98238D2271B00F40002993D /* Constants.swift */; };
 		E98238D5271B06840002993D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98238D4271B06840002993D /* AuthService.swift */; };
@@ -50,6 +53,9 @@
 		394365A32FC78ED42B4A4E56 /* Pods_TwitterApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TwitterApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5946724E03B0DC2A1EC8234A /* Pods-TwitterApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterApp.debug.xcconfig"; path = "Target Support Files/Pods-TwitterApp/Pods-TwitterApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E939E707272E9DEA00C409B1 /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
+		E939E709272EC88200C409B1 /* ActionSheetLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetLauncher.swift; sourceTree = "<group>"; };
+		E939E70B272EEC2600C409B1 /* ActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetCell.swift; sourceTree = "<group>"; };
+		E939E70D272EF8E900C409B1 /* ActionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetViewModel.swift; sourceTree = "<group>"; };
 		E949FC9B272864FD006B239E /* TweetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeader.swift; sourceTree = "<group>"; };
 		E98238D2271B00F40002993D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E98238D4271B06840002993D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -180,6 +186,7 @@
 				E9F05A9A27160BFB005F9E87 /* Extensions.swift */,
 				E9F05AA127171D8C005F9E87 /* Utilites.swift */,
 				E98238D2271B00F40002993D /* Constants.swift */,
+				E939E709272EC88200C409B1 /* ActionSheetLauncher.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -216,6 +223,7 @@
 				E98238E7271EE6570002993D /* TweetViewModel.swift */,
 				E98C57742721D4F100809458 /* ProfileHeaderViewModel.swift */,
 				E939E707272E9DEA00C409B1 /* UploadTweetViewModel.swift */,
+				E939E70D272EF8E900C409B1 /* ActionSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 				E98C57642721C34B00809458 /* Profile */,
 				E98C579C2727000800809458 /* UserCell.swift */,
 				E949FC9B272864FD006B239E /* TweetHeader.swift */,
+				E939E70B272EEC2600C409B1 /* ActionSheetCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -373,6 +382,7 @@
 				E9F05A9B27160BFB005F9E87 /* Extensions.swift in Sources */,
 				E98C57632721C18800809458 /* ProfileFilterView.swift in Sources */,
 				E98238DE271D95490002993D /* UploadTweetController.swift in Sources */,
+				E939E70C272EEC2600C409B1 /* ActionSheetCell.swift in Sources */,
 				E98238DC271C1E2F0002993D /* User.swift in Sources */,
 				E98238E0271DAE0B0002993D /* CaptionTextView.swift in Sources */,
 				E98238EC271F45AA0002993D /* ProfileHeader.swift in Sources */,
@@ -395,7 +405,9 @@
 				E98238DA271B48ED0002993D /* UserService.swift in Sources */,
 				E9F05A992715FBF1005F9E87 /* ConversationController.swift in Sources */,
 				E939E708272E9DEA00C409B1 /* UploadTweetViewModel.swift in Sources */,
+				E939E70A272EC88200C409B1 /* ActionSheetLauncher.swift in Sources */,
 				E9F05A932715FB6B005F9E87 /* FeedController.swift in Sources */,
+				E939E70E272EF8E900C409B1 /* ActionSheetViewModel.swift in Sources */,
 				E98238D3271B00F40002993D /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
