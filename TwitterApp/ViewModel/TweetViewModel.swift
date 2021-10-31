@@ -24,6 +24,7 @@ struct TweetViewModel {
         let now = Date()
         return formatter.string(from: tweet.timestamp, to: now) ?? "2m"
     }
+
     
     // title label with attributes
     var userInfoText: NSAttributedString {
@@ -38,9 +39,55 @@ struct TweetViewModel {
         return title
     }
     
+    
+    // tweet header
+    
+    var usernameText: String {
+        return "@\(user.username)"
+    }
+    
+    var headerTimestamp: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a • MM/dd/yyyy"
+        return formatter.string(from: tweet.timestamp)
+    }
+    
+    var retweetsAttributedString: NSAttributedString? {
+        return attributedText(withValue: tweet.retweetCount, text: "Retweets")
+    }
+    
+    var likesAttributedSting: NSAttributedString? {
+        return attributedText(withValue: tweet.likes, text: "Likes")
+    }
+    
+    
+    // MARK: - Init
+    
     init(tweet: Tweet) {
         self.tweet = tweet
         self.user = tweet.user
     }
     
+    
+    // MARK: - Methods
+    
+    fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
+        let attributedTitle = NSMutableAttributedString(string: "\(value)",
+                                       attributes: [.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedTitle.append(NSAttributedString(string: " \(text)",
+                                        attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.lightGray]))
+        
+        return attributedTitle
+    }
+    
+    
+    func size(forWidth width: CGFloat) -> CGSize {
+        let measurementLabel = UILabel()
+        measurementLabel.text = tweet.caption
+        measurementLabel.numberOfLines = 0
+        measurementLabel.lineBreakMode = .byWordWrapping
+        measurementLabel.translatesAutoresizingMaskIntoConstraints = false
+        measurementLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return measurementLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
 }
