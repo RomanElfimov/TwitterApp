@@ -12,6 +12,7 @@ import UIKit
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
+    func handleLikeTapped(_ cell: TweetCell)
 }
 
 
@@ -156,7 +157,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc func handleLikeTapped() {
-        
+        delegate?.handleLikeTapped(self)
     }
     
     @objc func handleShareTapped() {
@@ -174,5 +175,8 @@ class TweetCell: UICollectionViewCell {
         captionLabel.text = tweet.caption
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)
         infoLabel.attributedText = viewModel.userInfoText
+        
+        likeButton.tintColor = viewModel.likeButtonTintColor
+        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
     }
 }
