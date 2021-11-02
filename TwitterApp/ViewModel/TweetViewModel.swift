@@ -69,6 +69,17 @@ struct TweetViewModel {
         return UIImage(named: imageName)!
     }
     
+    
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyText: String? {
+        guard let replyingToUsername = tweet.replyingTo else { return nil }
+        return "→ replying to @\(replyingToUsername)"
+    }
+    
+    
     // MARK: - Init
     
     init(tweet: Tweet) {
@@ -77,7 +88,7 @@ struct TweetViewModel {
     }
     
     
-    // MARK: - Methods
+    // MARK: - Helpers
     
     fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {
         let attributedTitle = NSMutableAttributedString(string: "\(value)",
