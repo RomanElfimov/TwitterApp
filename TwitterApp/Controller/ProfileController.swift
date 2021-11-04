@@ -196,7 +196,17 @@ extension ProfileController: ProfileHeaderDelegate {
     func handleEditProfileFollow(_ header: ProfileHeader) {
         
         if user.isCurrentUser {
-            print("DEBUG: Show edit profile controller")
+            let controller = EditProfileController(user: user)
+            controller.delegate = self
+            let nav = UINavigationController(rootViewController: controller)
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.backgroundColor = .twitterBlue
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            nav.navigationBar.standardAppearance = navBarAppearance
+            nav.navigationBar.scrollEdgeAppearance = navBarAppearance
+            nav.modalPresentationStyle = .fullScreen
+            
+            present(nav, animated: true, completion: nil)
             return
         }
         
@@ -217,5 +227,19 @@ extension ProfileController: ProfileHeaderDelegate {
     
     func didSelect(filter: ProfileFilterOptions) {
         self.selectedFilter = filter
+    }
+}
+
+
+
+
+// MARK: - EditProfileControllerDelegate
+
+extension ProfileController: EditProfileControllerDelegate {
+    // Обновляем интерфейс когда внесли изменения в Profile Controller
+    func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true, completion: nil)
+        self.user = user
+        self.collectionView.reloadData()
     }
 }
