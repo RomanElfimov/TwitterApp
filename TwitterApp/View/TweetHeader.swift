@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import ActiveLabel
+
 
 protocol TweetHeaderDelegate: class {
     func showActionSheet()
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetHeader: UICollectionReusableView {
@@ -54,11 +57,12 @@ class TweetHeader: UICollectionReusableView {
         return label
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
-        label.text = "Some test caption from user"
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -82,10 +86,11 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
+        label.mentionColor = .twitterBlue
         return label
     }()
     
@@ -181,7 +186,7 @@ class TweetHeader: UICollectionReusableView {
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20, height: 40)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12, height: 40)
         
         // actionButtons
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
@@ -189,7 +194,9 @@ class TweetHeader: UICollectionReusableView {
         
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 16)
+        
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
@@ -254,6 +261,13 @@ class TweetHeader: UICollectionReusableView {
         button.tintColor = .darkGray
         button.setDimensions(width: 20, height: 20)
         return button
+    }
+    
+    
+    func configureMentionHandler() {
+        captionLabel.handleMentionTap { [weak self] username in
+            self?.delegate?.handleFetchUser(withUsername: username)
+        }
     }
     
 }

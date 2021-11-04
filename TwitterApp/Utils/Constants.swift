@@ -32,3 +32,5 @@ let REF_NOTIFICATIONS = DB_REF.child("notifications")
 
 
 let REF_USER_REPLIES = DB_REF.child("user-replies")
+
+let REF_USER_USERNAMES = DB_REF.child("user-usernames")
