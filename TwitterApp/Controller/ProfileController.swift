@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "TweetCell"
 private let headerIdentifier = "ProfileHeader"
@@ -166,7 +167,14 @@ extension ProfileController {
 extension ProfileController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350)
+
+        var height: CGFloat = 300
+        
+        if user.bio != "" {
+            height += 30
+        }
+            
+        return CGSize(width: view.frame.width, height: height)
     }
     
     
@@ -220,7 +228,7 @@ extension ProfileController: ProfileHeaderDelegate {
                 self?.user.isFollowed = true
                 self?.collectionView.reloadData()
                 
-                NotificationService.shared.uploadNotification(type: .follow, user: self?.user)
+                NotificationService.shared.uploadNotification(toUser: self!.user, type: .follow)
             }
         }
     }
@@ -236,10 +244,22 @@ extension ProfileController: ProfileHeaderDelegate {
 // MARK: - EditProfileControllerDelegate
 
 extension ProfileController: EditProfileControllerDelegate {
+       
     // Обновляем интерфейс когда внесли изменения в Profile Controller
     func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
         controller.dismiss(animated: true, completion: nil)
         self.user = user
         self.collectionView.reloadData()
+    }
+    
+    func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            let nav = UINavigationController(rootViewController: LoginController())
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        } catch let error {
+            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+        }
     }
 }

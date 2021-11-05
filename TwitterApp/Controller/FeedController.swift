@@ -48,6 +48,16 @@ class FeedController: UICollectionViewController {
         fetchTweets()
     }
     
+    // Open user menu
+    @objc func handleOpenMenu() {
+        guard let user = user else { return }
+        
+        // TODO - open user menu
+        
+//        let menuController =
+//        navigationController?.pushViewController(menuController, animated: true)
+    }
+    
     // MARK: - API
     
     func fetchTweets() {
@@ -102,6 +112,10 @@ class FeedController: UICollectionViewController {
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleOpenMenu))
+        profileImageView.addGestureRecognizer(tap)
+        profileImageView.isUserInteractionEnabled = true
         
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         
@@ -180,7 +194,7 @@ extension FeedController: TweetCellDelegate {
             
             // only upload notification if tweet is being liked
             guard !tweet.didLike else { return }
-            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+            NotificationService.shared.uploadNotification(toUser: tweet.user, type: .like, tweet: tweet)
         }
     }
     

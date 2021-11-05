@@ -195,6 +195,7 @@ class ProfileHeader: UICollectionReusableView {
         
         fullNameLabel.text = user.fullname
         usernameLabel.text = viewModel.userNameText
+        bioLabel.text = user.bio
     }
 }
 
