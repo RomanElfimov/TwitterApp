@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol MenuViewControllerDelegate {
+    func toggleMenu()
+}
+
 // Enumeration for Action Button
 enum ActionButtonConfiguration {
     
@@ -20,6 +24,8 @@ class MainTabController: UITabBarController {
     // MARK: - Properties
     
     private var buttonConfig: ActionButtonConfiguration = .tweet
+    
+    var menuDelegate: MenuViewControllerDelegate?
     
     var user: User? {
         didSet {
@@ -54,6 +60,10 @@ class MainTabController: UITabBarController {
         tabBarAppearance.backgroundColor = .systemBackground
         tabBar.standardAppearance = tabBarAppearance
         tabBar.scrollEdgeAppearance = tabBarAppearance
+    
+        guard let nav = viewControllers?.first as? UINavigationController else { return }
+        guard let feedVC = nav.viewControllers.first as? FeedController else { return }
+        feedVC.showMenuDelegate = self
     }
     
     
@@ -169,4 +179,16 @@ extension MainTabController: UITabBarControllerDelegate {
         actionButton.setImage(UIImage(named: imageName), for: .normal)
         buttonConfig = index == 3 ? .message : .tweet
     }
+}
+
+
+
+
+extension MainTabController: OpenMenuDelegate {
+    
+    func showMenu() {
+        menuDelegate?.toggleMenu()
+    }
+    
+    
 }

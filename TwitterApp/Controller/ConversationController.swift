@@ -16,7 +16,6 @@ class ConversationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureUI()
     }
     

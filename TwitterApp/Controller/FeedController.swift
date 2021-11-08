@@ -7,12 +7,19 @@
 
 import UIKit
 import SDWebImage
+import Firebase
+
+protocol OpenMenuDelegate {
+    func showMenu()
+}
 
 private let reuseIdentifier = "TweetCell"
 
 class FeedController: UICollectionViewController {
     
     // MARK: - Properties
+    
+    var showMenuDelegate: OpenMenuDelegate?
     
     var user: User? {
         didSet {
@@ -50,12 +57,7 @@ class FeedController: UICollectionViewController {
     
     // Open user menu
     @objc func handleOpenMenu() {
-        guard let user = user else { return }
-        
-        // TODO - open user menu
-        
-//        let menuController =
-//        navigationController?.pushViewController(menuController, animated: true)
+        showMenuDelegate?.showMenu()
     }
     
     // MARK: - API
@@ -79,6 +81,13 @@ class FeedController: UICollectionViewController {
                     self.tweets[index].didLike = true
                 }
             }
+        }
+    }
+    
+    func fetchUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        UserService.shared.fetchUser(uid: uid) { user in
+            self.user = user
         }
     }
     
