@@ -18,7 +18,7 @@ class ActionSheetLauncher: NSObject {
     
     // MARK: - Properties
     
-    private let user: User
+    private let user: TwitterUser
     private let tableView = UITableView()
     private var window: UIWindow?
     private lazy var viewModel = ActionSheetViewModel(user: user)
@@ -62,7 +62,7 @@ class ActionSheetLauncher: NSObject {
     
     // MARK: - LifeCycle
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
         super.init()
         

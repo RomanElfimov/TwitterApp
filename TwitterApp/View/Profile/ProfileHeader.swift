@@ -18,7 +18,7 @@ class ProfileHeader: UICollectionReusableView {
     
     // MARK: - Properties
     
-    var user: User? {
+    var user: TwitterUser? {
         didSet {
             configure()
         }

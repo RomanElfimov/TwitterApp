@@ -15,25 +15,25 @@ struct UserService {
     
     static let shared = UserService()
     
-    func fetchUser(uid: String, completion: @escaping(User) -> Void) {
+    func fetchUser(uid: String, completion: @escaping(TwitterUser) -> Void) {
         
         REF_USERS.child(uid).observeSingleEvent(of: .value) { snapshot in
         
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
           
-            let user = User(uid: uid, dictionary: dictionary)
+            let user = TwitterUser(uid: uid, dictionary: dictionary)
             completion(user)
         }
     }
     
     
-    func fetchUsers(completion: @escaping([User]) -> Void) {
-        var users = [User]()
+    func fetchUsers(completion: @escaping([TwitterUser]) -> Void) {
+        var users = [TwitterUser]()
         REF_USERS.observe(.childAdded) { snapshot in
             let uid = snapshot.key
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             
-            let user = User(uid: uid, dictionary: dictionary)
+            let user = TwitterUser(uid: uid, dictionary: dictionary)
             users.append(user)
             completion(users)
         }
@@ -100,7 +100,7 @@ struct UserService {
     }
     
     // Обновлям данные пользователя в профиле Edit Profile Controller
-    func saveUserData(user: User, completion: @escaping(DatabaseCompletion)) {
+    func saveUserData(user: TwitterUser, completion: @escaping(DatabaseCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let values = ["fullname": user.fullname,
@@ -113,7 +113,7 @@ struct UserService {
     
     // Когда кого-то упоминают через @, #
     
-    func fetchUser(withUsername username: String, completion: @escaping(User) -> Void) {
+    func fetchUser(withUsername username: String, completion: @escaping(TwitterUser) -> Void) {
         REF_USER_USERNAMES.child(username).observeSingleEvent(of: .value) { snapshot in
             guard let uid = snapshot.value as? String else { return }
             self.fetchUser(uid: uid, completion: completion)

@@ -23,13 +23,13 @@ class SearchController: UITableViewController {
     
     private let config: SearchControllerConfiguration
     
-    private var users = [User]() {
+    private var users = [TwitterUser]() {
         didSet {
             tableView.reloadData()
         }
     }
     
-    private var filteredUsers = [User]() {
+    private var filteredUsers = [TwitterUser]() {
         didSet {
             tableView.reloadData()
         }
@@ -129,9 +129,24 @@ extension SearchController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
-        let controller = ProfileController(user: user)
         
-        navigationController?.pushViewController(controller, animated: true)
+        if config == .userSearch {
+            let controller = ProfileController(user: user)
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            print("Hello")
+            let controller = ChatViewController()
+            
+//            guard let userProfileImageUrlString = URL(url: user.profileImageUrl) else { return }
+            
+            controller.conversationalistName = user.username
+            controller.conversationalistImgUrl = user.profileImageUrl
+            controller.conversationalistID = user.uid
+            navigationController?.pushViewController(controller, animated: true)
+        }
+        
+        
+        
     }
 }
 

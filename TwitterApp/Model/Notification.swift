@@ -19,11 +19,11 @@ struct Notification {
     
     var tweetID: String?
     var timestamp: Date!
-    var user: User
+    var user: TwitterUser
     var tweet: Tweet?
     var type: NotificationType!
     
-    init(user: User, dictionary: [String: AnyObject]) {
+    init(user: TwitterUser, dictionary: [String: AnyObject]) {
         self.user = user
         
         if let tweetID = dictionary["tweetID"] as? String {

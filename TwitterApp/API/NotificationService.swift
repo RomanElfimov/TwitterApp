@@ -11,7 +11,7 @@ struct NotificationService {
     
     static let shared = NotificationService()
     
-    func uploadNotification(toUser user: User, type: NotificationType, tweet: Tweet? = nil) {
+    func uploadNotification(toUser user: TwitterUser, type: NotificationType, tweet: Tweet? = nil) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         

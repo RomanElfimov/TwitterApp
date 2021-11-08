@@ -11,7 +11,7 @@ import Foundation
 
 struct ActionSheetViewModel {
     
-    private let user: User
+    private let user: TwitterUser
     
     var options: [ActionSheetOptions] {
         var results = [ActionSheetOptions]()
@@ -28,15 +28,15 @@ struct ActionSheetViewModel {
         return results
     }
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
     }
 }
 
 
 enum ActionSheetOptions {
-    case follow(User)
-    case unfollow(User)
+    case follow(TwitterUser)
+    case unfollow(TwitterUser)
     case report
     case delete
     

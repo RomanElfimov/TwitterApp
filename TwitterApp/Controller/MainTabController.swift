@@ -27,7 +27,7 @@ class MainTabController: UITabBarController {
     
     var menuDelegate: MenuViewControllerDelegate?
     
-    var user: User? {
+    var user: TwitterUser? {
         didSet {
             guard let nav = viewControllers?.first as? UINavigationController else { return }
             guard let feedVC = nav.viewControllers.first as? FeedController else { return }
@@ -64,6 +64,10 @@ class MainTabController: UITabBarController {
         guard let nav = viewControllers?.first as? UINavigationController else { return }
         guard let feedVC = nav.viewControllers.first as? FeedController else { return }
         feedVC.showMenuDelegate = self
+        
+        guard let nav = viewControllers?[3] as? UINavigationController else { return }
+        guard let convVC = nav.viewControllers.first as? ConversationController else { return }
+        convVC.delegate = self
     }
     
     
@@ -191,4 +195,22 @@ extension MainTabController: OpenMenuDelegate {
     }
     
     
+}
+
+
+
+
+extension MainTabController: ChatsControllerProtocol {
+    
+    func hideNewChatButton() {
+        actionButton.removeFromSuperview()
+    }
+    
+    
+    func showNewChatButton() {
+        actionButton.setDimensions(width: 56, height: 56)
+        view.addSubview(actionButton)
+        actionButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
+        actionButton.layer.cornerRadius = 56 / 2
+    }
 }

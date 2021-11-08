@@ -12,7 +12,7 @@ class UploadTweetController: UIViewController {
     
     // MARK: - Properties
     
-    private let user: User
+    private let user: TwitterUser
     private let config: UploadTweetConfiguration
     private lazy var viewModel = UploadTweetViewModel(config: config)
     
@@ -60,7 +60,7 @@ class UploadTweetController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(user: User, config: UploadTweetConfiguration) {
+    init(user: TwitterUser, config: UploadTweetConfiguration) {
         self.user = user
         self.config = config
         super.init(nibName: nil, bundle: nil)

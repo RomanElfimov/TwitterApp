@@ -10,7 +10,7 @@ import UIKit
 struct TweetViewModel {
     
     let tweet: Tweet
-    let user: User
+    let user: TwitterUser
     
     var profileImageUrl: URL? {
         return user.profileImageUrl

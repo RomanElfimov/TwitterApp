@@ -10,7 +10,7 @@ import UIKit
 private let reuseIdentifier = "EditProfileCell"
 
 protocol EditProfileControllerDelegate: class {
-    func controller(_ controller: EditProfileController, wantsToUpdate user: User)
+    func controller(_ controller: EditProfileController, wantsToUpdate user: TwitterUser)
     func handleLogout()
 }
 
@@ -18,7 +18,7 @@ class EditProfileController: UITableViewController {
     
     // MARK: - Properties
     
-    private var user: User
+    private var user: TwitterUser
     private lazy var headerView = EditProfileHeader(user: user)
     private let footerView = EditProfileFooter() // logout button
     // choose profile image
@@ -38,7 +38,7 @@ class EditProfileController: UITableViewController {
     
     // MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
         super.init(style: .plain)
     }

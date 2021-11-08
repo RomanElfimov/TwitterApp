@@ -15,7 +15,7 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private var user: User
+    private var user: TwitterUser
     
     // Фильтры
     
@@ -46,7 +46,7 @@ class ProfileController: UICollectionViewController {
     
     // MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -246,7 +246,7 @@ extension ProfileController: ProfileHeaderDelegate {
 extension ProfileController: EditProfileControllerDelegate {
        
     // Обновляем интерфейс когда внесли изменения в Profile Controller
-    func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
+    func controller(_ controller: EditProfileController, wantsToUpdate user: TwitterUser) {
         controller.dismiss(animated: true, completion: nil)
         self.user = user
         self.collectionView.reloadData()

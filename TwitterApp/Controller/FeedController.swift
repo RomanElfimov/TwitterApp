@@ -21,7 +21,7 @@ class FeedController: UICollectionViewController {
     
     var showMenuDelegate: OpenMenuDelegate?
     
-    var user: User? {
+    var user: TwitterUser? {
         didSet {
             configureLeftBarButton()
         }

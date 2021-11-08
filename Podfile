@@ -15,4 +15,11 @@ pod 'SDWebImage', '~> 5.0'
 
 pod 'ActiveLabel'
 
+pod 'Firebase/Analytics'
+
+pod 'Firebase/Firestore'
+pod 'GoogleSignIn', '5.0.2'
+
+pod 'MessageKit'
+
 end

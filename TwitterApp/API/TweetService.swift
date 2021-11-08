@@ -75,7 +75,7 @@ struct TweetService {
     
     
     // Загружаем твиты для пользователя
-    func fetchTweets(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+    func fetchTweets(forUser user: TwitterUser, completion: @escaping([Tweet]) -> Void) {
         var tweets = [Tweet]()
         
         REF_USER_TWEETS.child(user.uid).observe(.childAdded) { snapshot in
@@ -102,7 +102,7 @@ struct TweetService {
     }
     
     // replies for user
-    func fetchReplies(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+    func fetchReplies(forUser user: TwitterUser, completion: @escaping([Tweet]) -> Void) {
         var replies = [Tweet]()
         
         REF_USER_REPLIES.child(user.uid).observe(.childAdded) { snapshot in
@@ -143,7 +143,7 @@ struct TweetService {
     
     
     // Твиты с лайками в Profile Controller
-    func fetchLikes(forUser user: User, completion: @escaping([Tweet]) -> Void) {
+    func fetchLikes(forUser user: TwitterUser, completion: @escaping([Tweet]) -> Void) {
         var tweets = [Tweet]()
         
         REF_USER_LIKES.child(user.uid).observe(.childAdded) { snapshot in

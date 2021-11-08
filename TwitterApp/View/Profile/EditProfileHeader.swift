@@ -15,7 +15,7 @@ class EditProfileHeader: UIView {
     
     // MARK: - Properties
     
-    private let user: User
+    private let user: TwitterUser
     weak var delegate: EditProfileHeaderDelegate?
     
     let profileImageView: UIImageView = {
@@ -39,7 +39,7 @@ class EditProfileHeader: UIView {
     
     // MARK: - Lifecycle
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
         super.init(frame: .zero)
         

@@ -26,7 +26,7 @@ enum ProfileFilterOptions: Int, CaseIterable {
 
 struct ProfileHeaderViewModel {
     
-    private let user: User
+    private let user: TwitterUser
     
     let userNameText: String
     
@@ -58,7 +58,7 @@ struct ProfileHeaderViewModel {
         return "Loading"
     }
     
-    init(user: User) {
+    init(user: TwitterUser) {
         self.user = user
         
         self.userNameText = "@" + user.username

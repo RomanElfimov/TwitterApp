@@ -14,7 +14,7 @@ class MenuController: UIViewController {
     
     // MARK: - Properties
     
-    private var user: User?
+    private var user: TwitterUser?
     
     private let imagesArray: [String] = ["person", "arrow.backward.square"]
     private let dataSourceArray: [String] = ["Профиль", "Выйти"]
@@ -113,7 +113,7 @@ class MenuController: UIViewController {
     }
     
     
-    func configure(user: User) {
+    func configure(user: TwitterUser) {
         let viewModel = ProfileHeaderViewModel(user: user)
         
         profileImageView.sd_setImage(with: user.profileImageUrl)
@@ -148,7 +148,7 @@ class MenuController: UIViewController {
         }
     }
     
-    private func fetchStats(_ user: User) {
+    private func fetchStats(_ user: TwitterUser) {
         UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
             self?.user?.stats = stats
         }
