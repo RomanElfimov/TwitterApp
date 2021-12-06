@@ -27,15 +27,15 @@ struct NotificationViewModel {
     var notificationMessage: String {
         switch type {
         case .follow:
-            return " started following you"
+            return " начал читать вас"
         case .like:
-            return " liked your tweet"
+            return " оценил твит"
         case .reply:
-            return " replied to your tweet"
+            return " ответил на твит"
         case .retweet:
-            return " retweeted your tweet"
+            return " рутвитнул ваш твит"
         case .mention:
-            return " mentioned you in a tweet"
+            return " упомянул вас"
         }
     }
     
@@ -61,7 +61,7 @@ struct NotificationViewModel {
     }
     
     var followButtonText: String {
-        return user.isFollowed ? "Following" : "Follow"
+        return user.isFollowed ? "Читаю" : "Читать"
     }
     
     init(notification: Notification) {

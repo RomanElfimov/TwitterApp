@@ -75,8 +75,8 @@ class MainTabController: UITabBarController {
     
     func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.shared.fetchUser(uid: uid) { user in
-            self.user = user
+        UserService.shared.fetchUser(uid: uid) { [weak self] user in
+            self?.user = user
         }
     }
     
@@ -191,6 +191,7 @@ extension MainTabController: UITabBarControllerDelegate {
 extension MainTabController: OpenMenuDelegate {
     
     func showMenu() {
+        print("show menu")
         menuDelegate?.toggleMenu()
     }
     

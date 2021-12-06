@@ -65,10 +65,10 @@ class NotificationsController: UITableViewController {
             guard case .follow = notification.type else { return }
             let user = notification.user
             
-            UserService.shared.checkIfUserIsFollowed(uid: user.uid) { isFollowed in
+            UserService.shared.checkIfUserIsFollowed(uid: user.uid) { [weak self] isFollowed in
                 
-                if let index = self.notifications.firstIndex(where: { $0.user.uid == notification.user.uid }) {
-                    self.notifications[index].user.isFollowed = isFollowed
+                if let index = self?.notifications.firstIndex(where: { $0.user.uid == notification.user.uid }) {
+                    self?.notifications[index].user.isFollowed = isFollowed
                 }
             }
         }
@@ -79,7 +79,7 @@ class NotificationsController: UITableViewController {
     func configureUI() {
         
         view.backgroundColor = .white
-        navigationItem.title = "Notifications"
+        navigationItem.title = "Уведомления"
         
         tableView.register(NotificationCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 60

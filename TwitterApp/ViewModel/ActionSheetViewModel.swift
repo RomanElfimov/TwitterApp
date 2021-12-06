@@ -43,13 +43,13 @@ enum ActionSheetOptions {
     var description: String {
         switch self {
         case .follow(let user):
-            return "Follow @\(user.username)"
+            return "Читать @\(user.username)"
         case .unfollow(let user):
-            return "Unfollow @\(user.username)"
+            return "Перестать читать @\(user.username)"
         case .report:
-            return "Report Tweet"
+            return "Пожаловаться"
         case .delete:
-            return "Delete Tweet"
+            return "Удалить Твит"
         }
     }
 }

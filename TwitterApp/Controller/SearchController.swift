@@ -68,8 +68,8 @@ class SearchController: UITableViewController {
     // MARK: - API
     
     func fetchUsers() {
-        UserService.shared.fetchUsers { users in
-            self.users = users
+        UserService.shared.fetchUsers { [weak self] users in
+            self?.users = users
         }
     }
     
@@ -85,7 +85,7 @@ class SearchController: UITableViewController {
     func configureUI() {
         
         view.backgroundColor = .white
-        navigationItem.title = config == .messages ? "New Message" : "Explore"
+        navigationItem.title = config == .messages ? "Написать" : "Поиск"
         
         tableView.register(UserCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 60
@@ -101,7 +101,7 @@ class SearchController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for a user"
+        searchController.searchBar.placeholder = "Поиск в Твиттере"
         navigationItem.searchController = searchController
         definesPresentationContext = false
     }

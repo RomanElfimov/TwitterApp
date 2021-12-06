@@ -114,7 +114,7 @@ class ConversationController: UITableViewController {
     func configureUI() {
         
         view.backgroundColor = .white
-        navigationItem.title = "Messages"
+        navigationItem.title = "Сообщения"
         
         tableView.register(UserCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 60
@@ -125,7 +125,7 @@ class ConversationController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = "Search chat"
+        searchController.searchBar.placeholder = "Поиск диалогов"
         navigationItem.searchController = searchController
         definesPresentationContext = false
     }

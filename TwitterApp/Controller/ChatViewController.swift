@@ -101,7 +101,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                             //fetch it's thread collection
                             doc.reference.collection("thread")
                                 .order(by: "created", descending: false)
-                                .addSnapshotListener(includeMetadataChanges: true, listener: { (threadQuery, error) in
+                                .addSnapshotListener(includeMetadataChanges: true, listener: { [weak self] (threadQuery, error) in
+                                    guard let self = self else { return }
                                     if let error = error {
                                         print("Error: \(error)")
                                         return
@@ -189,15 +190,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         return messages[indexPath.section]
         
     }
-    
-    
-    //    func numberOfItems(inSection section: Int, in messagesCollectionView: MessagesCollectionView) -> Int {
-    //        return messages.count
-    //    }
-    //
-    //    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
-    //        return 1
-    //    }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         

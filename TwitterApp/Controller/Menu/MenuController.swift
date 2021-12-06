@@ -8,8 +8,6 @@
 import UIKit
 import Firebase
 
-//private let headerIdentifier = "ProfileHeader"
-
 class MenuController: UIViewController {
     
     // MARK: - Properties
@@ -133,8 +131,8 @@ class MenuController: UIViewController {
     
     private func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.shared.fetchUser(uid: uid) { user in
-            self.user = user
+        UserService.shared.fetchUser(uid: uid) { [weak self] user in
+            self?.user = user
             
             UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
                 self?.user?.stats = stats
@@ -145,12 +143,6 @@ class MenuController: UIViewController {
                 self?.configure(user: userWithStats)
                 self?.collectionView.reloadData()
             }
-        }
-    }
-    
-    private func fetchStats(_ user: TwitterUser) {
-        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
-            self?.user?.stats = stats
         }
     }
     
@@ -171,7 +163,17 @@ extension MenuController: UICollectionViewDelegate {
             present(controller, animated: true, completion: nil)
             
         } else if indexPath.row == 1 {
-            print("Log out")
+            do {
+                try Auth.auth().signOut()
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                
+                self.dismiss(animated: true)
+                self.present(nav, animated: true, completion: nil)
+                
+            } catch let error {
+                print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+            }
         }
     }
 }

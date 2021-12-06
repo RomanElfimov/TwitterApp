@@ -42,7 +42,7 @@ class LoginController: UIViewController {
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilites().textField(withPlaceholder: "Password")
+        let tf = Utilites().textField(withPlaceholder: "Пароль")
         tf.isSecureTextEntry = true
         return tf
     }()
@@ -51,7 +51,7 @@ class LoginController: UIViewController {
     // login button
     private let loginButton: UIButton = {
         let button = UIButton(type: .system) 
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("Войти", for: .normal)
         button.setTitleColor(.twitterBlue, for: .normal)
         button.backgroundColor = .white
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -63,7 +63,7 @@ class LoginController: UIViewController {
     
     // dontHaveAccountButton at the bottom of screen
     private let dontHaveAccountButton: UIButton = {
-        let button = Utilites().attributedButton("Don't have an account", " Sign Up")
+        let button = Utilites().attributedButton("Нет аккаунта?", " Зарегистрироваться")
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()
@@ -84,23 +84,33 @@ class LoginController: UIViewController {
     }
     
     @objc func handleLogin() {
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
+        guard let email = emailTextField.text else { fatalError() }
+        guard let password = passwordTextField.text else { fatalError() }
         AuthService.shared.logUserIn(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
-                print("DEBUG: Error loggin in \(error.localizedDescription)")
+                print("DEBUG: Error login in \(error.localizedDescription)")
                 if error.localizedDescription == "The password is invalid or the user does not have a password." {
                     self?.presentAlertController(withTitle: "Ошибка", withMessage: "Неверный пароль")
                 } else if error.localizedDescription == "The email address is badly formatted." {
                     self?.presentAlertController(withTitle: "Ошибка", withMessage: "Неверный email")
+                } else if error.localizedDescription == "There is no user record corresponding to this identifier. The user may have been deleted." {
+                    self?.presentAlertController(withTitle: "Такого пользователя не существует", withMessage: "Проверьте правильность заполнения email и пароля")
                 }
                 return
             }
             
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            guard let tab = window.rootViewController as? MainTabController else { return }
-            tab.authenticateUserAndConfigureUI()
+//            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { fatalError() }
+//            guard let tab = window.rootViewController as? MainTabController else { fatalError() }
             
+            
+            let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+            guard let container = keyWindow?.rootViewController as? ContainerViewController else { fatalError() }
+
+//            container.showMenuViewController(shouldMove: false)
+            
+            guard let tab = container.controller as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+
             self?.dismiss(animated: true, completion: nil)
         }
     }

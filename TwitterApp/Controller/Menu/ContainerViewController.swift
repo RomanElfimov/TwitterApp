@@ -24,12 +24,14 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         
         configureMainViewController()
+        print("DEBUUG: View did load containter controller")
     }
     
     // MARK: - Selectors
     
     @objc func dismissMenu() {
         isMove = false
+        print("dismissMenu")
         showMenuViewController(shouldMove: isMove)
     }
     

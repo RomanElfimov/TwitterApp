@@ -44,7 +44,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilites().textField(withPlaceholder: "Password")
+        let tf = Utilites().textField(withPlaceholder: "Пароль")
 //        tf.isSecureTextEntry = true
         return tf
     }()
@@ -57,7 +57,7 @@ class RegistrationController: UIViewController {
     }()
     
     private let fullNameTextField: UITextField = {
-        let tf = Utilites().textField(withPlaceholder: "Full Name")
+        let tf = Utilites().textField(withPlaceholder: "Имя пользователя")
         return tf
     }()
     
@@ -69,14 +69,14 @@ class RegistrationController: UIViewController {
     }()
     
     private let userNameTextField: UITextField = {
-        let tf = Utilites().textField(withPlaceholder: "Username")
+        let tf = Utilites().textField(withPlaceholder: "Логин")
         return tf
     }()
     
     
     // alreadyHaveAccountButton at the bottom of screen
     private let alreadyHaveAccountButton: UIButton = {
-        let button = Utilites().attributedButton("Already have an account?", " Log In")
+        let button = Utilites().attributedButton("Есть аккаунт?", " Войти")
         button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
         return button
     }()
@@ -84,7 +84,7 @@ class RegistrationController: UIViewController {
     
     private let registrationButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
+        button.setTitle("Зарегистрироваться", for: .normal)
         button.setTitleColor(.twitterBlue, for: .normal)
         button.backgroundColor = .white
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -119,8 +119,11 @@ class RegistrationController: UIViewController {
         let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profileImage)
         AuthService.shared.registerUser(credentials: credentials) { error, ref in
             
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            guard let tab = window.rootViewController as? MainTabController else { return }
+            let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+            guard let container = keyWindow?.rootViewController as? ContainerViewController else { fatalError() }
+//            container.showMenuViewController(shouldMove: false)
+            
+            guard let tab = container.controller as? MainTabController else { return }
             tab.authenticateUserAndConfigureUI()
             
             self.dismiss(animated: true, completion: nil)

@@ -22,7 +22,7 @@ class EditProfileFooter: UIView {
     
     private lazy var logoutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Logout", for: .normal)
+        button.setTitle("Выйти", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)

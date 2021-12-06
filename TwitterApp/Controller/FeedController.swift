@@ -64,21 +64,21 @@ class FeedController: UICollectionViewController {
     
     func fetchTweets() {
         collectionView.refreshControl?.beginRefreshing()
-        TweetService.shared.fetchTweets {  tweets in
-            self.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
-            self.checkIfUserLikedTweets()
+        TweetService.shared.fetchTweets { [weak self] tweets in
+            self?.tweets = tweets.sorted(by: { $0.timestamp > $1.timestamp })
+            self?.checkIfUserLikedTweets()
           
-            self.collectionView.refreshControl?.endRefreshing()
+            self?.collectionView.refreshControl?.endRefreshing()
         }
     }
     
     func checkIfUserLikedTweets() {
         self.tweets.forEach { tweet in
-            TweetService.shared.checkIfUserLikedTweet(tweet) { didLike in
+            TweetService.shared.checkIfUserLikedTweet(tweet) { [weak self] didLike in
                 guard didLike == true else { return }
                 
-                if let index = self.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
-                    self.tweets[index].didLike = true
+                if let index = self?.tweets.firstIndex(where: { $0.tweetID == tweet.tweetID }) {
+                    self?.tweets[index].didLike = true
                 }
             }
         }
@@ -86,8 +86,8 @@ class FeedController: UICollectionViewController {
     
     func fetchUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        UserService.shared.fetchUser(uid: uid) { user in
-            self.user = user
+        UserService.shared.fetchUser(uid: uid) { [weak self] user in
+            self?.user = user
         }
     }
     

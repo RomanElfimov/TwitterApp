@@ -15,11 +15,11 @@ enum EditProfileOptions: Int, CaseIterable {
     var description: String {
         switch self {
         case .username:
-            return "Username"
+            return "Логин"
         case .fullname:
-            return "Name"
+            return "Имя"
         case .bio:
-            return "Bio"
+            return "Инфо"
         }
     }
 }

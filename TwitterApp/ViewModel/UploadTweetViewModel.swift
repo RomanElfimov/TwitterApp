@@ -22,7 +22,7 @@ struct UploadTweetViewModel {
     init(config: UploadTweetConfiguration) {
         switch config {
         case .tweet:
-            actionButtonTitle = "Tweet"
+            actionButtonTitle = "Твитнуть"
             placeholderText = "Что нового?"
             shouldShowReplyLabel = false
         case .reply(let tweet):

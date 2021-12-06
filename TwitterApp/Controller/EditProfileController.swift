@@ -83,8 +83,8 @@ class EditProfileController: UITableViewController {
         }
         
         if userInfoChanged && imageChanged {
-            UserService.shared.saveUserData(user: user) { err, ref in
-                self.updateProfileImage()
+            UserService.shared.saveUserData(user: user) { [weak self] err, ref in
+                self?.updateProfileImage()
             }
         }
     }
@@ -110,7 +110,7 @@ class EditProfileController: UITableViewController {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.orange]
 
         
-        navigationItem.title = "Edit Profile"
+        navigationItem.title = "Изменить профиль"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
@@ -124,7 +124,7 @@ class EditProfileController: UITableViewController {
         
         footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
         tableView.tableFooterView = footerView
-        footerView.delegate = self
+//        footerView.delegate = self
         
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }

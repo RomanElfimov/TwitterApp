@@ -90,8 +90,8 @@ class ProfileController: UICollectionViewController {
     }
     
     func fetchReplies() {
-        TweetService.shared.fetchReplies(forUser: user) { tweets in
-            self.replies = tweets
+        TweetService.shared.fetchReplies(forUser: user) { [weak self] tweets in
+            self?.replies = tweets
         }
     }
     

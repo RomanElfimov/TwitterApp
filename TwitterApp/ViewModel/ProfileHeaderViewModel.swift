@@ -16,9 +16,9 @@ enum ProfileFilterOptions: Int, CaseIterable {
     
     var description: String {
         switch self {
-        case .tweets: return "Tweets"
-        case .replies: return "Tweets & Replies"
-        case .likes: return "Likes"
+        case .tweets: return "Твиты"
+        case .replies: return "Твиты и ответы"
+        case .likes: return "Нравится"
         }
     }
 }
@@ -31,11 +31,11 @@ struct ProfileHeaderViewModel {
     let userNameText: String
     
     var followersString: NSAttributedString? {
-        return attributedText(withValue: user.stats?.followers ?? 0, text: "followers")
+        return attributedText(withValue: user.stats?.followers ?? 0, text: "читателей")
     }
     
     var followingString: NSAttributedString? {
-        return attributedText(withValue: user.stats?.following ?? 0, text: "following")
+        return attributedText(withValue: user.stats?.following ?? 0, text: "читаемых")
     }
     
     // follow / unfollow button
@@ -44,15 +44,15 @@ struct ProfileHeaderViewModel {
         // else figure out following/not following
         
         if user.isCurrentUser {
-            return "Edit Profile"
+            return "Изменить"
         }
         
         if !user.isFollowed && !user.isCurrentUser {
-            return "Follow"
+            return "Читать"
         }
         
         if user.isFollowed {
-            return "Following"
+            return "Читаю"
         }
         
         return "Loading"

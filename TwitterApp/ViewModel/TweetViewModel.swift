@@ -53,11 +53,11 @@ struct TweetViewModel {
     }
     
     var retweetsAttributedString: NSAttributedString? {
-        return attributedText(withValue: tweet.retweetCount, text: "Retweets")
+        return attributedText(withValue: tweet.retweetCount, text: "ретвита(-ов)")
     }
     
     var likesAttributedSting: NSAttributedString? {
-        return attributedText(withValue: tweet.likes, text: "Likes")
+        return attributedText(withValue: tweet.likes, text: "отметки(-ок) «Нравится»")
     }
     
     var likeButtonTintColor: UIColor {
@@ -76,7 +76,7 @@ struct TweetViewModel {
     
     var replyText: String? {
         guard let replyingToUsername = tweet.replyingTo else { return nil }
-        return "→ replying to @\(replyingToUsername)"
+        return "→ В ответ @\(replyingToUsername)"
     }
     
     
